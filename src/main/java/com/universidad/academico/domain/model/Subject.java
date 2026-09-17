@@ -1,4 +1,4 @@
-package main.java.com.universidad.academico.domain.model;
+package src.main.java.com.universidad.academico.domain.model;
 
 public class Subject {
     private String codigo;
