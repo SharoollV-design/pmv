@@ -1,4 +1,4 @@
-package src.main.java.com.universidad.academico.application.usecase;
+package main.java.com.universidad.academico.application.usecase;
 
 import src.main.java.com.universidad.academico.domain.model.Subject;
 import src.main.java.com.universidad.academico.domain.repository.SubjectRepository;
