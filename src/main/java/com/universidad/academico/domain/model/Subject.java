@@ -1,4 +1,4 @@
-package src.main.java.com.universidad.academico.domain.model;
+package main.java.com.universidad.academico.domain.model;
 
 public class Subject {
     private String codigo;
@@ -9,8 +9,9 @@ public class Subject {
     private String semestre;
     private String horarioClases;
 
-    public Subject (String codigo, String nombre, String descripcion, int creditos, int anioAcademico, String semestre, String horarioClases) throws IllegalAccessException{
-        if(codigo == null || codigo.isBlank()) {
+    public Subject(String codigo, String nombre, String descripcion, int creditos, int anioAcademico, String semestre,
+            String horarioClases) throws IllegalAccessException {
+        if (codigo == null || codigo.isBlank()) {
             throw new IllegalAccessException("El codigo de la asignatura no puede estar vacío");
         }
         this.codigo = codigo;
@@ -22,41 +23,47 @@ public class Subject {
         this.horarioClases = horarioClases;
     }
 
-    public String getCodigo() { 
-        return codigo; 
-    }
-    public String getNombre() { 
-        return nombre;
-    }
-    public String getDescripcion() { 
-        return descripcion; 
-    }
-    public int getCreditos() { 
-        return creditos; 
-    }
-    public int getAnioAcademico() { 
-        return anioAcademico; 
-    }
-    public String getSemestre() { 
-        return semestre; 
-    }
-    public String getHorarioClases() { 
-        return horarioClases; 
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setNombre(String nombre){
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public int getCreditos() {
+        return creditos;
+    }
+
+    public int getAnioAcademico() {
+        return anioAcademico;
+    }
+
+    public String getSemestre() {
+        return semestre;
+    }
+
+    public String getHorarioClases() {
+        return horarioClases;
+    }
+
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public void setDescripcion(String descripcion){
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    public void setCreditos(int creditos){
+    public void setCreditos(int creditos) {
         this.creditos = creditos;
     }
 
-    public void setAnioAcademico(int anioAcademico){
+    public void setAnioAcademico(int anioAcademico) {
         this.anioAcademico = anioAcademico;
     }
 
@@ -64,13 +71,13 @@ public class Subject {
         this.semestre = semestre;
     }
 
-    public void setHorarioClases(String horarioClases){
+    public void setHorarioClases(String horarioClases) {
         this.horarioClases = horarioClases;
     }
 
-    @Override 
+    @Override
     public String toString() {
-    return "Asignatura [" + codigo + "] " + nombre + " (Semestre: " + semestre + ")";
+        return "Asignatura [" + codigo + "] " + nombre + " (Semestre: " + semestre + ")";
     }
 
 }
