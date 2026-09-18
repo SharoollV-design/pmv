@@ -3,18 +3,22 @@ package main.java.com.universidad.academico.infrastructure.ui;
 import java.time.LocalDate;
 import main.java.com.universidad.academico.application.usecase.RegisterEstudianteUseCase;
 import main.java.com.universidad.academico.application.usecase.RegisterExamenUseCase;
+import main.java.com.universidad.academico.application.usecase.RegisterInscripcionUseCase;
 import main.java.com.universidad.academico.application.usecase.RegisterProfesorUseCase;
 import main.java.com.universidad.academico.application.usecase.RegisterSubjectUseCase;
 import main.java.com.universidad.academico.domain.model.Estudiante;
 import main.java.com.universidad.academico.domain.model.Examen;
+import main.java.com.universidad.academico.domain.model.Inscripcion;
 import main.java.com.universidad.academico.domain.model.Profesor;
 import main.java.com.universidad.academico.domain.model.Subject;
 import main.java.com.universidad.academico.domain.repository.EstudianteRepository;
 import main.java.com.universidad.academico.domain.repository.ExamenRepository;
+import main.java.com.universidad.academico.domain.repository.InscripcionRepository;
 import main.java.com.universidad.academico.domain.repository.ProfesorRepository;
 import main.java.com.universidad.academico.domain.repository.SubjectRepository;
 import main.java.com.universidad.academico.infrastructure.persistence.InMemoryEstudianteRepository;
 import main.java.com.universidad.academico.infrastructure.persistence.InMemoryExamenRepository;
+import main.java.com.universidad.academico.infrastructure.persistence.InMemoryInscripcionRepository;
 import main.java.com.universidad.academico.infrastructure.persistence.InMemoryProfesorRepository;
 import main.java.com.universidad.academico.infrastructure.persistence.InMemorySubjectRepository;
 
@@ -28,7 +32,7 @@ public class Main {
 
         try {
             Subject nuevaAsignatura = new Subject(
-                "SIS-101", 
+                "SOF-101", 
                 "Arquitectura de Software", 
                 "Introducción a la arquitectura hexagonal y DDD", 
                 4, 
@@ -119,6 +123,34 @@ public class Main {
         }
         
         System.out.println("=== Ejecucion finalizada ===");
+
+        System.out.println("<<33");
+
+        System.out.println("     ");
+
+        // === Modulo inscripciones === 
+       InscripcionRepository inscripcionRepository = new InMemoryInscripcionRepository();
+
+        RegisterInscripcionUseCase registerInscripcionUseCase = new RegisterInscripcionUseCase(inscripcionRepository, estudianteRepository, repository);
+
+        try {
+            Inscripcion nuevaInscripcion = new Inscripcion(
+                "INS-001",
+                "EST-001", 
+                "SOF-101", 
+                LocalDate.now()
+            );
+
+            registerInscripcionUseCase.execute(nuevaInscripcion);
+            System.out.println("Total de inscripciones guardadas: " + inscripcionRepository.findAll().size());
+
+        } catch (Exception e) {
+            System.out.println("Error en Inscripciones: " + e.getMessage());
+        }
+        
+        System.out.println("=== Ejecucion finalizada ===");
+        System.out.println(" <<333 ");
     }
+
  
 }
