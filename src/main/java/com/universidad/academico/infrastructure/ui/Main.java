@@ -1,15 +1,19 @@
 package main.java.com.universidad.academico.infrastructure.ui;
 
 import java.time.LocalDate;
+import main.java.com.universidad.academico.application.usecase.RegisterEstudianteUseCase;
 import main.java.com.universidad.academico.application.usecase.RegisterExamenUseCase;
 import main.java.com.universidad.academico.application.usecase.RegisterProfesorUseCase;
 import main.java.com.universidad.academico.application.usecase.RegisterSubjectUseCase;
+import main.java.com.universidad.academico.domain.model.Estudiante;
 import main.java.com.universidad.academico.domain.model.Examen;
 import main.java.com.universidad.academico.domain.model.Profesor;
 import main.java.com.universidad.academico.domain.model.Subject;
+import main.java.com.universidad.academico.domain.repository.EstudianteRepository;
 import main.java.com.universidad.academico.domain.repository.ExamenRepository;
 import main.java.com.universidad.academico.domain.repository.ProfesorRepository;
 import main.java.com.universidad.academico.domain.repository.SubjectRepository;
+import main.java.com.universidad.academico.infrastructure.persistence.InMemoryEstudianteRepository;
 import main.java.com.universidad.academico.infrastructure.persistence.InMemoryExamenRepository;
 import main.java.com.universidad.academico.infrastructure.persistence.InMemoryProfesorRepository;
 import main.java.com.universidad.academico.infrastructure.persistence.InMemorySubjectRepository;
@@ -52,9 +56,9 @@ public class Main {
             Profesor nuevoProfesor = new Profesor(
                 "PROF-001",
                 "Carlos",
-                "Pérez",
-                "carlos.perez@universidad.com",
-                "Ingeniería de Sistemas"
+                "Montoya",
+                "carlos.perez@uchile.cl",
+                "Ingeniería de software"
             );
 
             registerProfesorUseCase.execute(nuevoProfesor);
@@ -77,7 +81,7 @@ public class Main {
             Examen nuevoExamen = new Examen(
                 "EX-001",
                 "Parcial 1: Arquitectura Hexagonal",
-                "SIS-101",
+                "SOF-101",
                 LocalDate.of(2026, 4, 15),
                 30.0
             );
@@ -92,5 +96,29 @@ public class Main {
         System.out.println("=== Ejecucion finalizada ===");
 
         System.out.println(" <<33 ");
+
+        System.out.println("     ");
+
+        EstudianteRepository estudianteRepository = new InMemoryEstudianteRepository();
+        RegisterEstudianteUseCase registerEstudianteUseCase = new RegisterEstudianteUseCase(estudianteRepository);
+
+        try {
+            Estudiante nuevoEstudiante = new Estudiante(
+                "EST-001",
+                "Sharoll ",
+                "Meza Villadiego",
+                "ana.gomez@uchile.cl",
+                "Ingeniería de Software"
+            );
+
+            registerEstudianteUseCase.execute(nuevoEstudiante);
+            System.out.println("Total de estudiantes guardados: " + estudianteRepository.findAll().size());
+
+        } catch (Exception e) {
+            System.out.println("Error en Estudiantes: " + e.getMessage());
+        }
+        
+        System.out.println("=== Ejecucion finalizada ===");
     }
+ 
 }
