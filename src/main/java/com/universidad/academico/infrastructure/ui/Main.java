@@ -1,21 +1,25 @@
 package main.java.com.universidad.academico.infrastructure.ui;
 
 import java.time.LocalDate;
+import main.java.com.universidad.academico.application.usecase.RegisterCalificacionUseCase;
 import main.java.com.universidad.academico.application.usecase.RegisterEstudianteUseCase;
 import main.java.com.universidad.academico.application.usecase.RegisterExamenUseCase;
 import main.java.com.universidad.academico.application.usecase.RegisterInscripcionUseCase;
 import main.java.com.universidad.academico.application.usecase.RegisterProfesorUseCase;
 import main.java.com.universidad.academico.application.usecase.RegisterSubjectUseCase;
+import main.java.com.universidad.academico.domain.model.Calificacion;
 import main.java.com.universidad.academico.domain.model.Estudiante;
 import main.java.com.universidad.academico.domain.model.Examen;
 import main.java.com.universidad.academico.domain.model.Inscripcion;
 import main.java.com.universidad.academico.domain.model.Profesor;
 import main.java.com.universidad.academico.domain.model.Subject;
+import main.java.com.universidad.academico.domain.repository.CalificacionRepository;
 import main.java.com.universidad.academico.domain.repository.EstudianteRepository;
 import main.java.com.universidad.academico.domain.repository.ExamenRepository;
 import main.java.com.universidad.academico.domain.repository.InscripcionRepository;
 import main.java.com.universidad.academico.domain.repository.ProfesorRepository;
 import main.java.com.universidad.academico.domain.repository.SubjectRepository;
+import main.java.com.universidad.academico.infrastructure.persistence.InMemoryCalificacionRepository;
 import main.java.com.universidad.academico.infrastructure.persistence.InMemoryEstudianteRepository;
 import main.java.com.universidad.academico.infrastructure.persistence.InMemoryExamenRepository;
 import main.java.com.universidad.academico.infrastructure.persistence.InMemoryInscripcionRepository;
@@ -150,7 +154,33 @@ public class Main {
         
         System.out.println("=== Ejecucion finalizada ===");
         System.out.println(" <<333 ");
-    }
 
- 
+        System.out.println("    ");
+
+        // == Modulo calificaciones ==
+        CalificacionRepository calificacionRepository = new InMemoryCalificacionRepository();
+        RegisterCalificacionUseCase registerCalificacionUseCase = new RegisterCalificacionUseCase(
+            calificacionRepository, estudianteRepository, repository
+        );
+
+        try {
+            Calificacion nuevaCalificacion = new Calificacion(
+                "CAL-001",
+                "EST-001",
+                "SOF-101",
+                4.8, 
+                LocalDate.now()
+            );
+
+            registerCalificacionUseCase.execute(nuevaCalificacion);
+            System.out.println("Total de calificaciones guardadas: " + calificacionRepository.findAll().size());
+        } catch (Exception e) {
+            System.out.println("Error en Calificaciones: " + e.getMessage());
+        }
+
+        System.out.println("=== Ejecucion finalizada ===");
+        System.out.println("   ");
+        System.out.println("=== Completado ===");
+    }
+    
 }
